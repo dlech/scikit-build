@@ -12,9 +12,9 @@ def test_source_distribution(virtualenv, tmp_path):
     workspace = str(tmp_path / "workspace")
     virtualenv.install("build")
     virtualenv.module("build", "--sdist", "--outdir", sdist_dir, cwd=DIR.parent)
-    (sdists,) = sdist_dir.glob("*.tar.gz")
+    (sdist,) = sdist_dir.glob("*.tar.gz")
 
-    virtualenv.install(sdists[0])
+    virtualenv.install(sdist)
 
     prepare_project("hello-no-language", workspace, force=True)
     initialize_git_repo_and_commit(workspace, verbose=False)
