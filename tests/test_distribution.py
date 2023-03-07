@@ -20,7 +20,7 @@ def test_source_distribution(virtualenv, tmp_path):
     prepare_project("hello-no-language", str(workspace), force=True)
     initialize_git_repo_and_commit(str(workspace), verbose=False)
 
-    virtualenv.run("python", "setup.py", "bdist_wheel")
+    virtualenv.run("python", "setup.py", "bdist_wheel", cwd=workspace)
 
 
 def test_wheel(virtualenv, tmp_path):
@@ -36,4 +36,4 @@ def test_wheel(virtualenv, tmp_path):
     prepare_project("hello-no-language", str(workspace), force=True)
     initialize_git_repo_and_commit(str(workspace), verbose=False)
 
-    virtualenv.run("python", "setup.py", "bdist_wheel")
+    virtualenv.run("python", "setup.py", "bdist_wheel", cwd=workspace)
