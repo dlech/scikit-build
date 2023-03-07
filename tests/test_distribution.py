@@ -9,7 +9,7 @@ DIR = Path(__file__).parent.resolve()
 
 def test_source_distribution(virtualenv, tmp_path):
     sdist_dir = tmp_path / "dist"
-    workspace = str(tmp_path / "workspace")
+    workspace = tmp_path / "workspace"
     workspace.mkdir()
     virtualenv.install("build")
     virtualenv.module("build", "--sdist", "--outdir", sdist_dir, cwd=DIR.parent)
@@ -17,15 +17,15 @@ def test_source_distribution(virtualenv, tmp_path):
 
     virtualenv.install(sdist)
 
-    prepare_project("hello-no-language", workspace, force=True)
-    initialize_git_repo_and_commit(workspace, verbose=False)
+    prepare_project("hello-no-language", str(workspace), force=True)
+    initialize_git_repo_and_commit(str(workspace), verbose=False)
 
     virtualenv.run("python", "setup.py", "bdist_wheel")
 
 
 def test_wheel(virtualenv, tmp_path):
     wheel_dir = tmp_path / "dist"
-    workspace = str(tmp_path / "workspace")
+    workspace = tmp_path / "workspace"
     workspace.mkdir()
     virtualenv.install("build")
     virtualenv.module("build", "--wheel", "--outdir", wheel_dir, cwd=DIR.parent)
@@ -33,7 +33,7 @@ def test_wheel(virtualenv, tmp_path):
 
     virtualenv.install(wheel)
 
-    prepare_project("hello-no-language", workspace, force=True)
-    initialize_git_repo_and_commit(workspace, verbose=False)
+    prepare_project("hello-no-language", str(workspace), force=True)
+    initialize_git_repo_and_commit(str(workspace), verbose=False)
 
     virtualenv.run("python", "setup.py", "bdist_wheel")
