@@ -583,6 +583,12 @@ class CMaker:
                         candidate_libdirs.append(os.path.join(libdir, masd))
                 candidate_libdirs.append(libdir)
 
+            # another virtualenv hack for finding the library in MSYS2 on Windows
+            if os.environ.get("MSYSTEM"):
+                candidate_extensions.append(".dll.a")
+                prefix_path = sysconfig.get_config_var("prefix")
+                candidate_libdirs.append(os.path.join(prefix_path, "lib"))
+
             candidates = (
                 os.path.join(libdir, "".join((pre, impl, ver, abi, suf, ext)))
                 for (libdir, pre, impl, ext, ver, abi, suf) in itertools.product(
